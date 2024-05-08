@@ -44,6 +44,18 @@ document.querySelectorAll(".slide")[slideSelected].classList.add("active");
 // Al click sulle frecce cambiamo slide (previous)
 document.getElementById("btnPrev").addEventListener("click", function() {
 	console.log("Hai cliccato su #btnPrev");
+
+	const indiceUltimaSlide = images.length - 1;
+
+	document.querySelectorAll(".slide")[slideSelected].classList.remove("active");
+
+	if( slideSelected <= 0 ){
+		slideSelected = indiceUltimaSlide;
+	} else {
+		slideSelected--;
+	}
+
+	document.querySelectorAll(".slide")[slideSelected].classList.add("active");
 });
  
 // Al click sulle frecce cambiamo slide (next)
@@ -63,3 +75,10 @@ document.getElementById("btnNext").addEventListener("click", function() {
 	document.querySelectorAll(".slide")[slideSelected].classList.add("active");
 
 });
+
+/*
+Possibili miglioramenti su cui ragionare:
+- nel ciclo, chiamare una funzione che genera l'html per me, forninendogli i tre argomenti necessari
+- gli event listener fanno entrambi uso di indiceUltimaSlide...
+- gli event listener potrebbero richiamare una funzione
+*/
