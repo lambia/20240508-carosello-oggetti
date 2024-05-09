@@ -23,7 +23,8 @@ const images = [
 // Costruiamo noi delle slide da aggiungere in pagina tramite un ciclo sul nostro array.
 
 // Con un ciclo creo le slide e le inietto in pagina (tutte visibili)
-const containerEl = document.getElementById("container");
+const slideContainer = document.getElementById("slideContainer");
+const thumbnailsContainer = document.getElementById("thumbnailsContainer");
 
 for (const slide of images) {
 
@@ -36,7 +37,12 @@ for (const slide of images) {
 			</div>
 		</div>`;
 
-	containerEl.innerHTML += slideHtml;
+	slideContainer.innerHTML += slideHtml;
+	
+	let thumbHtml = `<img src="${slide.image}" />`;
+
+	thumbnailsContainer.innerHTML += thumbHtml;
+	
 }
 
 // Rendo visibile la prima slide
