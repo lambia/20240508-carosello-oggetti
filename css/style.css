@@ -59,12 +59,12 @@ button {
 	z-index: 999;
 }
 
-#thumbnails {
+#thumbnailsContainer {
 	display: flex;
 	overflow-x: auto;
 }
 
-#thumbnails > img {
+#thumbnailsContainer > img {
 	height: 20vh;
 	width: 33.333%;
 	object-fit: cover;
