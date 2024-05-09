@@ -20,6 +20,8 @@ const images = [
     }
 ];
 
+const indiceUltimaSlide = images.length - 1;
+
 // Costruiamo noi delle slide da aggiungere in pagina tramite un ciclo sul nostro array.
 
 // Con un ciclo creo le slide e le inietto in pagina (tutte visibili)
@@ -29,15 +31,20 @@ const thumbnailsContainer = document.getElementById("thumbnailsContainer");
 for (let i = 0; i < images.length; i++) {
 	const slide = images[i];
 
-	let slideHtml = `
-		<div class="slide">
-			<img src="${slide.image}" />
-			<div class="caption">
-				<h2>${slide.title}</h2>
-				<p>${slide.text}</p>
-			</div>
-		</div>`;
+	let imagePosition = "";
+	if(i==2 || i==3) {
+		imagePosition = `object-position: bottom;`;
+	}
 
+	let slideHtml = `
+	<div class="slide">
+		<img src="${slide.image}" style="${imagePosition}" />
+		<div class="caption">
+			<h2>${slide.title}</h2>
+			<p>${slide.text}</p>
+		</div>
+	</div>`;
+	
 	slideContainer.innerHTML += slideHtml;
 	
 	let thumbnail = document.createElement("img");
@@ -46,15 +53,7 @@ for (let i = 0; i < images.length; i++) {
 
 	thumbnail.addEventListener("click", function() {
 		console.log("Hai cliccato sulla thumbnail", i);
-
-		document.querySelectorAll(".slide")[slideSelected].classList.remove("active");
-		document.querySelectorAll("#thumbnailsContainer > img")[slideSelected].classList.remove("active");
-	
-		slideSelected = i;
-	
-		document.querySelectorAll(".slide")[slideSelected].classList.add("active");
-		document.querySelectorAll("#thumbnailsContainer > img")[slideSelected].classList.add("active");
-
+		showSlide(i);
 	});
 	
 }
@@ -68,38 +67,23 @@ document.querySelectorAll("#thumbnailsContainer > img")[slideSelected].classList
 document.getElementById("btnPrev").addEventListener("click", function() {
 	console.log("Hai cliccato su #btnPrev");
 
-	const indiceUltimaSlide = images.length - 1;
-
-	document.querySelectorAll(".slide")[slideSelected].classList.remove("active");
-	document.querySelectorAll("#thumbnailsContainer > img")[slideSelected].classList.remove("active");
-
 	if( slideSelected <= 0 ){
-		slideSelected = indiceUltimaSlide;
+		showSlide(indiceUltimaSlide);
 	} else {
-		slideSelected--;
+		showSlide( slideSelected-1 );
 	}
 
-	document.querySelectorAll(".slide")[slideSelected].classList.add("active");
-	document.querySelectorAll("#thumbnailsContainer > img")[slideSelected].classList.add("active");
 });
- 
+
 // Al click sulle frecce cambiamo slide (next)
 document.getElementById("btnNext").addEventListener("click", function() {
 	console.log("Hai cliccato su #btnNext");
-
-	const indiceUltimaSlide = images.length - 1;
 	
-	document.querySelectorAll(".slide")[slideSelected].classList.remove("active");
-	document.querySelectorAll("#thumbnailsContainer > img")[slideSelected].classList.remove("active");
-
 	if( slideSelected >= indiceUltimaSlide ){
-		slideSelected = 0;
+		showSlide( 0 );
 	} else {
-		slideSelected++;
+		showSlide( slideSelected+1 );
 	}
-
-	document.querySelectorAll(".slide")[slideSelected].classList.add("active");
-	document.querySelectorAll("#thumbnailsContainer > img")[slideSelected].classList.add("active");
 
 });
 
@@ -109,3 +93,13 @@ Possibili miglioramenti su cui ragionare:
 - gli event listener fanno entrambi uso di indiceUltimaSlide...
 - gli event listener potrebbero richiamare una funzione
 */
+
+function showSlide(quale) {
+	document.querySelectorAll(".slide")[slideSelected].classList.remove("active");
+	document.querySelectorAll("#thumbnailsContainer > img")[slideSelected].classList.remove("active");
+
+	slideSelected = quale;
+
+	document.querySelectorAll(".slide")[slideSelected].classList.add("active");
+	document.querySelectorAll("#thumbnailsContainer > img")[slideSelected].classList.add("active");
+}
