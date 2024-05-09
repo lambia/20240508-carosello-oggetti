@@ -87,13 +87,6 @@ document.getElementById("btnNext").addEventListener("click", function() {
 
 });
 
-/*
-Possibili miglioramenti su cui ragionare:
-- nel ciclo, chiamare una funzione che genera l'html per me, forninendogli i tre argomenti necessari
-- gli event listener fanno entrambi uso di indiceUltimaSlide...
-- gli event listener potrebbero richiamare una funzione
-*/
-
 function showSlide(quale) {
 	document.querySelectorAll(".slide")[slideSelected].classList.remove("active");
 	document.querySelectorAll("#thumbnailsContainer > img")[slideSelected].classList.remove("active");
