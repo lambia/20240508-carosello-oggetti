@@ -26,7 +26,8 @@ const images = [
 const slideContainer = document.getElementById("slideContainer");
 const thumbnailsContainer = document.getElementById("thumbnailsContainer");
 
-for (const slide of images) {
+for (let i = 0; i < images.length; i++) {
+	const slide = images[i];
 
 	let slideHtml = `
 		<div class="slide">
@@ -39,15 +40,29 @@ for (const slide of images) {
 
 	slideContainer.innerHTML += slideHtml;
 	
-	let thumbHtml = `<img src="${slide.image}" />`;
+	let thumbnail = document.createElement("img");
+	thumbnail.src = slide.image;
+	thumbnailsContainer.append(thumbnail);
 
-	thumbnailsContainer.innerHTML += thumbHtml;
+	thumbnail.addEventListener("click", function() {
+		console.log("Hai cliccato sulla thumbnail", i);
+
+		document.querySelectorAll(".slide")[slideSelected].classList.remove("active");
+		document.querySelectorAll("#thumbnailsContainer > img")[slideSelected].classList.remove("active");
+	
+		slideSelected = i;
+	
+		document.querySelectorAll(".slide")[slideSelected].classList.add("active");
+		document.querySelectorAll("#thumbnailsContainer > img")[slideSelected].classList.add("active");
+
+	});
 	
 }
 
 // Rendo visibile la prima slide
 let slideSelected = 0;
 document.querySelectorAll(".slide")[slideSelected].classList.add("active");
+document.querySelectorAll("#thumbnailsContainer > img")[slideSelected].classList.add("active"); 
 
 // Al click sulle frecce cambiamo slide (previous)
 document.getElementById("btnPrev").addEventListener("click", function() {
@@ -56,6 +71,7 @@ document.getElementById("btnPrev").addEventListener("click", function() {
 	const indiceUltimaSlide = images.length - 1;
 
 	document.querySelectorAll(".slide")[slideSelected].classList.remove("active");
+	document.querySelectorAll("#thumbnailsContainer > img")[slideSelected].classList.remove("active");
 
 	if( slideSelected <= 0 ){
 		slideSelected = indiceUltimaSlide;
@@ -64,6 +80,7 @@ document.getElementById("btnPrev").addEventListener("click", function() {
 	}
 
 	document.querySelectorAll(".slide")[slideSelected].classList.add("active");
+	document.querySelectorAll("#thumbnailsContainer > img")[slideSelected].classList.add("active");
 });
  
 // Al click sulle frecce cambiamo slide (next)
@@ -73,6 +90,7 @@ document.getElementById("btnNext").addEventListener("click", function() {
 	const indiceUltimaSlide = images.length - 1;
 	
 	document.querySelectorAll(".slide")[slideSelected].classList.remove("active");
+	document.querySelectorAll("#thumbnailsContainer > img")[slideSelected].classList.remove("active");
 
 	if( slideSelected >= indiceUltimaSlide ){
 		slideSelected = 0;
@@ -81,6 +99,7 @@ document.getElementById("btnNext").addEventListener("click", function() {
 	}
 
 	document.querySelectorAll(".slide")[slideSelected].classList.add("active");
+	document.querySelectorAll("#thumbnailsContainer > img")[slideSelected].classList.add("active");
 
 });
 
