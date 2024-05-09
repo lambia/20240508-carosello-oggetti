@@ -30,8 +30,10 @@ for (const slide of images) {
 	let slideHtml = `
 		<div class="slide">
 			<img src="${slide.image}" />
-			<h2>${slide.title}</h2>
-			<p>${slide.text}</p>
+			<div class="caption">
+				<h2>${slide.title}</h2>
+				<p>${slide.text}</p>
+			</div>
 		</div>`;
 
 	containerEl.innerHTML += slideHtml;
